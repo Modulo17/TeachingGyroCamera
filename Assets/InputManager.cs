@@ -3,23 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 
 
-public static class Vector2Extension {
-
-	public static Vector2 Rotate(this Vector2 v, float degrees) {
-		float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
-		float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
-
-		float tx = v.x;
-		float ty = v.y;
-		v.x = (cos * tx) - (sin * ty);
-		v.y = (sin * tx) + (cos * ty);
-		return v;
-	}
-}
 
 public class InputManager : MonoBehaviour {
 
-    public  Text InputText;      //Link in Inspector
+
+	public	Button	GravityButton;  //Link in inspector
+    public  Text 	InputText;      //Link in Inspector
 
     static  public   InputManager IM;
 
@@ -41,7 +30,7 @@ public class InputManager : MonoBehaviour {
         }	
 	}
 	
-	// Update is called once per frame
+	// Update is called once per physics frame
 	void Update () {
         GetInput();
 		float	tAngle=Gyro ();
@@ -79,13 +68,17 @@ public class InputManager : MonoBehaviour {
         }
     }
 
-	float	Gyro() {
+	float	Gyro() {							//Get real gyro or fake it
 		if (SystemInfo.supportsGyroscope) {
 			Vector3	tVector = Input.gyro.gravity;
-			float tAngle=Mathf.Atan2 (tVector.y, tVector.x)*Mathf.Rad2Deg;;
-			InputText.text += string.Format ("{0:f2} {1:f2}", tVector ,tAngle);
-			return	Mathf.Atan2 (tVector.x, -tVector.y)*Mathf.Rad2Deg;
+			float tAngle = Mathf.Atan2 (tVector.x, -tVector.y) * Mathf.Rad2Deg;		//Fix it so 0 is up
+			InputText.text += string.Format ("{0:f2} {1:f2}", tVector, tAngle);
+			GravityButton.interactable = false;
+			return	tAngle;
+		} else {		//Fake it with Gravity button
+			float	tAngle=GravityButton.GetComponent<ShowGravity> ().Angle;
+			GravityButton.interactable = true;
+			return	tAngle;
 		}
-		return	0f;
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Select : MonoBehaviour {
 
+	AudioSource[]	mAud;
 
     SpriteRenderer mSR;         //Get SpriteRenderer
     bool mSelected;             //Is Object Selected
@@ -15,8 +16,17 @@ public class Select : MonoBehaviour {
     public bool Selected {      //Set/Get Object selected state
         set {
             mSelected = value;
-            mSR.color = (mSelected) ? mSelectedColour : mColour;
-			mRB.gravityScale = (mSelected) ? 0f : 1f;
+			if (mSelected) {
+				if (SystemInfo.supportsVibration) {		//Vibrate on select
+					Handheld.Vibrate ();
+				}
+				mAud[0].Play ();
+				mSR.color = mSelectedColour;		//Show selected colour
+				mRB.gravityScale = 0f;				//Allow move without gravity
+			} else {
+				mSR.color = mColour;
+				mRB.gravityScale = 1f;
+			}
         }
         get {
             return mSelected;
@@ -28,6 +38,8 @@ public class Select : MonoBehaviour {
 	void Start () {
 		mRB = GetComponent<Rigidbody2D> ();
         mSR = GetComponent<SpriteRenderer>();       //Get Sprite render Reference
+		mAud = GetComponents<AudioSource>();
+
         mColour = mSR.color;        //Keep Default colour
         mSelectedColour = new Color(mColour.r, mColour.g, mColour.b, mColour.a * 0.7f); //New Colour
 	}
