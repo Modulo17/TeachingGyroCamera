@@ -20,7 +20,7 @@ public class DisplayCamera : MonoBehaviour {
 		SetCamera();
     }
 
-	public	void	SetCamera() {
+		public	void	SetCamera() {
 		ShowVideo(CameraToggle.isOn);		//Turn Camera on
 	}
 

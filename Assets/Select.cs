@@ -17,9 +17,12 @@ public class Select : MonoBehaviour {
         set {
             mSelected = value;
 			if (mSelected) {
+				#if UNITY_WEBGL
+				#else
 				if (SystemInfo.supportsVibration) {		//Vibrate on select
 					Handheld.Vibrate ();
 				}
+				#endif
 				mAud[0].Play ();
 				mSR.color = mSelectedColour;		//Show selected colour
 				mRB.gravityScale = 0f;				//Allow move without gravity
