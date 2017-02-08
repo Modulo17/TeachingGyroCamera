@@ -6,16 +6,22 @@ public class ShowGravity : MonoBehaviour {
 
 	Image	mIndicator;		//Arrow Sprite
 
-	float	mAngle;
+	float	mAngle;         //Angle of Device
+    Text mText;
 
 	// Use this for initialization
 	void Start () {
 		mIndicator = GetComponent<Image> ();	//Get Arrow
-	}
+        if(GetComponent<Button>().IsInteractable()) {
+            GetComponentInChildren<Text>().text="No Gyro";
+        } else {
+            GetComponentInChildren<Text>().text = "Gyro";
+        }
+    }
 	
 	// Update is called once per physics frame
 	void FixedUpdate () {
-		mAngle = Mathf.Atan2 (Physics2D.gravity.x, -Physics2D.gravity.y)*Mathf.Rad2Deg;
+		mAngle = Mathf.Atan2 (Physics2D.gravity.x, -Physics2D.gravity.y)*Mathf.Rad2Deg; //Progably safer changing gravity on physics update
 		mIndicator.transform.rotation = Quaternion.Euler (0, 0, mAngle+180f);	//As arrow default is up, offset rotate down
 	}
 

@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
 	public	Button	GravityButton;  //Link in inspector
     public  Text 	InputText;      //Link in Inspector
 
-    static  public   InputManager IM;
+    public static  InputManager IM;
 
     GameObject mSelected;       //The currently Selected Object
 
