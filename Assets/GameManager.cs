@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 		if (GM == null) {
 			GM = this;
 			DontDestroyOnLoad (gameObject);
+            Debug.Log("GameManager up");
 		} else if (GM != this) {
 			Destroy (gameObject);
 		}

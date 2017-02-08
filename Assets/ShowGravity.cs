@@ -12,10 +12,10 @@ public class ShowGravity : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		mIndicator = GetComponent<Image> ();	//Get Arrow
-        if(GetComponent<Button>().IsInteractable()) {
-            GetComponentInChildren<Text>().text="No Gyro";
+        if(SystemInfo.supportsGyroscope) {
+            GetComponentInChildren<Text>().text = "Gyro OK";
         } else {
-            GetComponentInChildren<Text>().text = "Gyro";
+            GetComponentInChildren<Text>().text = "No Gyro";
         }
     }
 	
