@@ -7,5 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/GyroAndCamera.unity
+    guid: 8fe0db84f06a076448010385c98af385
   - enabled: 0
     path: Assets/TestScene.unity
+    guid: e319eaa927b40c944823faad8551ac2d
+  - enabled: 0
+    path: Assets/Builds/GyroTest.unity
+    guid: 3948fddf9445c364195a6803aa0c39a5
